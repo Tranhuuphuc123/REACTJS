@@ -1,0 +1,95 @@
+<!--xử lý sự kiện DOM Evenet-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xử lý sự kiện với DOmEVent</title>
+</head>
+<body>
+    <h1>Dom Event</h1>
+
+    <!--****************sử dụng các event*************************-->
+
+    <!--sự kiện mỗi lần click chuột là sinh ra sự kiện phát tán số ngẫu nhiênm-->
+    <h2 onclick="console.log(Math.random())">Liên  kết1</h2>
+    <!-- sự kiện rên chuột vào đối tượng element, mỗi lần chỉ cần rê chuột qua là sẽ phát tán số ngẫu nhiên -->
+    <h2 onmouseover="console.log(Math.random())">Liên  kết2</h2>
+    <!--di chuột ra đối tượng là bắt sự kiện-->
+    <!-- <h2 onmouseout="console.log(Math.random())">Liên  kết</h2> -->
+
+    <!--dùng this để đại diện cho chinh các attributes(querySelector, getElementById...) của element-->
+    <h2 onclick="console.log(this)">Liên  kết3</h2>
+    <!-- // lấy ra text -->
+    <h2 onclick="console.log(this.innerText)">Liên  kết4</h2>
+    <h1 class="sukiengang">
+        <span>Liên kết 5</span>
+    </h1>
+
+
+
+    <!--****************gáng sự kiện*************************-->
+    <h3>
+        <span>gáng sự kiện</span>
+    </h3>
+
+    <h3 class="sukiengang1">
+        <span>gáng sự kiện 2</span>
+    </h3>
+
+    <!-- /******************VÍ DỤ: DOM EVENT THỰC TIỄN**************** */ -->
+    <!--Dom Event với thẻ input, select, checkbox-->
+    <input type="text">
+    <input type="checkbox">
+
+    <select>
+        <option value="1">java</option>
+        <option value="2">c#</option>
+        <option value="3">php</option>
+        <option value="4">c++</option>
+    </select><br><br>
+
+
+    <!--Phần nội dung hai sự kiện PREVENTDEFAULT VÀ STOPPROPAGATION -->
+    <a href="https://fullstack.edu.vn/">Học lập trình F8</a><br><br>
+    <a href="https://google.com.vn">Google pages</a><br><br>
+
+
+    
+   <!-- bài ví dụ 2 -->
+    <input placeholder="Tiềm kiếm">
+    <!--cho ul ẩn đi khi nào tiềm kiếm cái nào hiện ra cái đó-->
+    <ul>
+        <li>Java</li>
+        <li>C#</li>
+        <li>PHP</li>
+    </ul>
+
+    <!-- css cho đoạn trên -->
+    <style>
+        ul{
+            display: none;
+        }
+        /* cách này dùng để khi nhấn vào nút input thì mới hiện ra nd còn click ra ngoài thì ẩn */
+        input:focus ~ ul{
+           display:block
+        }
+    </style><br><br>
+
+
+    <!--demo thuộc tính  stopPropagation-->
+    <div>
+        DIV: <button>Click me!</button>
+    </div>
+
+    <!--học các thuộc tính event listener-->
+    <button id="btn">Click!</button>
+
+
+
+    <!--chèn js-->
+    <script src="../session16_HTMLDom/DOM_events.js"></script>
+    <script src="../session16_HTMLDom/PrevenntDefault_StopPropagation.js"></script>
+    <script src="../session16_HTMLDom/Event_Listener.js"></script>
+</body>
+</html>

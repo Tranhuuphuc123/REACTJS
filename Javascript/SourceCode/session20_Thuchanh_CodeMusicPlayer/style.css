@@ -1,0 +1,243 @@
+/*************Thiết kế css cho phần thực hành code music player*****************/
+
+/*
+ => :root là một lớp giả pseudo-class và cùng là một pseudo-element luôn
+ => nhiệm vụ: định nghĩa các biến CSS, còn được gọi là "CSS Custom Properties," và
+  chúng cho phép bạn lưu trữ các giá trị mà bạn muốn sử dụng lại trong mã CSS của bạn.
+      + --primary-color : đại diện cho màu chính trong giao diện của bạn.
+      + --text-color: đại diện cho màu chữ trong giao diện của bạn.
+
+  ==>Kết luận: 
+    -> Sau khi bạn đã định nghĩa các biến này bằng ":root," bạn có thể sử dụng chúng trong toàn
+   bộ tài liệu CSS của mình. Điều này giúp bạn dễ dàng thay đổi màu sắc hoặc giá trị khác trong 
+   giao diện của bạn chỉ bằng cách sửa đổi giá trị của các biến này mà không cần phải điều chỉnh
+    tất cả các địa điểm mà bạn đã sử dụng màu sắc hoặc giá trị tương tự.
+*/
+:root{
+    --primary-color: #ec1f55;
+    --text-color: #333;
+}
+
+*{
+    padding: 0;
+    margin: 0;
+    /* inherits:  có nghĩa là tất cả các tp đều kế thừa box-zing từ thèn cha giúp cho
+    tất cả đều đc tính toán không làm tăng kích thước viền lên;*/
+    box-sizing: inherit;
+}
+
+body{
+    background-color:  #f5f5f5;;
+}
+
+html {
+    box-sizing: border-box; /*Border-box: giúp tính toán hợp lý không làm tăng kích thước của của các tp ban đầu*/
+}
+
+.player{
+    /* relative Định vị trí tuyệt đối cho các thành phần, không gây ảnh hưởng tới vị trí ban đầu
+     hay các thành phần khác.*/
+    position: relative;
+    max-width: 480px;
+    margin: 0 auto; /*auto tự xét margin cho vị trí trái phải*/
+}
+
+/*nút hiển thị ẩn đi icon pause khi player khôg ở trạng thái playing
+Nếu player không có lớp (class) "playing", biểu tượng "pause" sẽ bị ẩn.*/
+.player .icon-pause{
+    display: none;
+}
+
+/*Đoạn mã này hiển thị biểu tượng "pause" khi player ở trạng thái "playing"*/
+.player.playing .icon-pause {
+    display: inline-block;
+  }
+
+  /* Đoạn mã này ẩn biểu tượng "play" khi player ở trạng thái "playing"*/
+.player.playing .icon-play {
+    display: none;
+} 
+
+.dashboard{
+    padding: 16px 16px 14px;
+    background-color:  #fff;
+    /*Định vị và giúp cho phần tử luôn cố định một chỗ, ví dụ như khi bạn scroll trình duyệt chẳng hạn,
+     phần tử sẽ không thay đổi.*/
+    position: fixed;
+    top: 0;
+    width: 100%;
+    max-width: 480px;
+    border-bottom: 1px solid #ebebeb;
+}
+
+
+/*Header*/
+header{
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+header h4{
+    color: var(--primary-color);
+    font-size: 12px;
+}
+
+header h2{
+    color: var(--text-color);
+    font-size: 20px;
+}
+
+
+/*CD*/
+.cd{
+    /*flex: ý nghĩa 
+     + định rằng phần tử đó sẽ trở thành một container dạng flex (một loại bố cục linh hoạt) cho các phần tử con bên trong nó.
+     + Container dạng flex cho phép bạn quản lý và sắp xếp các phần tử con bên trong một cách dễ dàng và linh hoạt
+     + Các phần tử con của container dạng flex sẽ thích nghi với kích thước của container cha và sắp xếp một cách tự động.*/
+    display: flex;
+    margin: auto;
+    width: 200px;
+}
+
+.cd-child{
+    width: 100%;
+    padding-top: 100%;
+    border-radius: 50%;
+    background-color: #333;
+    /* cover: trình duyệt sẽ điều chỉnh kích thước của hình nền để nó phủ kín toàn bộ phần tử mà không làm biến dạng hình ảnh, 
+    và nếu cần, sẽ cắt bỏ phần thừa của hình ảnh.*/
+    background-size: cover;
+    margin: auto;
+}
+
+
+/*Control: cắc phím điều khiển*/
+.control{
+    display: flex;
+    align-items: center;
+    /*space-around: làm cho các phần tử con nằm trong container dạng flex được căn giữa với nhau và xung quanh chúng có một khoảng trống đều đặn. 
+    Khoảng trống này được chia đều giữa các phần tử con và ở cả hai bên cuối của hàng. */
+    justify-content: space-around;
+    padding: 18px 0 8px 0;
+}
+
+.control .btn{
+  color: #666;
+  padding:  18px;
+  font-size: 18px;
+}
+
+.control .btn-toggle-play{
+    width: 56px;
+    height: 56px;
+    border-radius: 100%;
+    font-size: 24px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--primary-color);
+}
+
+.control .btn.active {
+    color: var(--primary-color);
+  }
+
+
+
+/*tùy chỉnh css thanh process chạy time của bài hát khi pkay bài hát*/
+.progress{
+    width: 100%;
+    height: 6px;
+    background:  #d3d3d3;
+    /*độ trong suốt*/
+    opacity: 0.7;
+    /*Đây là một thuộc tính dành cho trình duyệt webkit (như Google Chrome hoặc Safari) để tùy chỉnh cách một phần 
+    tử giao diện người dùng (UI element) hoặc phần tử trình điều khiển (form control) được hiển thị.
+    Bằng cách đặt giá trị none, bạn loại bỏ thiết kế mặc định của trình duyệt cho phần tử này, thường được 
+    sử dụng để tùy chỉnh giao diện cho các yếu tố như nút radio, checkbox, hoặc dropdown.*/
+    -webkit-appearance: none;
+
+    /*Thuộc tính outline được sử dụng để xác định đường viền (outline) của một phần tử khi nó được tập trung (focus).
+    Bằng cách đặt giá trị none, bạn loại bỏ đường viền khi phần tử này được tập trung, điều này thường được thực hiện để làm
+     cho giao diện trông gọn gàng hơn
+    */
+    outline: none;
+
+    /*transition là một thuộc tính CSS được sử dụng để kiểm soát hiệu ứng chuyển đổi (transition) giữa các trạng thái khác nhau của một phần tử.
+    Trong trường hợp này, transition được đặt cho trình duyệt webkit (như Chrome hoặc Safari) với giá trị 0.2s, tức là mỗi khi trạng thái của phần
+     tử thay đổi, các thuộc tính CSS thay đổi sẽ được thực hiện trong vòng 0.2 giây.*/
+    -webkit-transition: 0.2s;
+
+    /*Đây là một thuộc tính transition khác, nhưng không có tiền tố -webkit-, nên nó áp dụng cho các trình duyệt khác ngoài webkit.
+    Nó định nghĩa một hiệu ứng chuyển đổi (transition) cho thuộc tính opacity của phần tử trong vòng 0.2 giây. Khi thuộc tính opacity 
+    thay đổi, hiệu ứng chuyển đổi sẽ làm cho sự thay đổi này diễn ra một cách mượt mà trong khoảng thời gian 0.2 giây.*/
+    transition: opacity 0.2s;
+}
+
+
+
+
+/*Tùy chỉnh phần PlayList hiển thị dánh sách các bài hát*/
+.playlist{
+    margin-top: 408px;
+    padding:  12px;
+}
+
+.song{
+    display: flex;
+    align-items: center;
+    margin-bottom:12px;
+    background-color: #fff;
+    padding:  8px 16px;
+    border-radius: 5px;
+    /* tùy chỉnh hiệu ứng đổ bóng*/
+    box-shadow: 0 2px 3px rgba(0,0,0,0.1);
+}
+
+.song .thumb {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-size: cover;
+    margin: 0 8px;
+  }
+
+.song .body {
+    flex: 1;
+    padding: 0 16px;
+  }
+
+.song .title {
+    font-size: 18px;
+    color: var(--text-color);
+}
+
+.song .author {
+    font-size: 12px;
+    color: #999;
+}  
+
+.song .option {
+    padding: 16px 8px;
+    color: #999;
+    font-size: 18px;
+  }
+
+  /*hiệu ứng active cho các icon khi rê chuột bắt sự kiện sẽ có thể hiện hiệu ứng khác nhau*/
+  .song.active {
+    background-color: var(--primary-color);
+  }
+  
+  /*Lớp giả bắt hành vi giữ chuột => tạo hiệu ứng khi giữ chuột một đối tượng nó sẽ tạo hiệu ứng
+  chạm */
+  .song:active {
+    opacity: 0.8;
+  }
+  
+  .song.active .option,
+  .song.active .author,
+  .song.active .title {
+    color: #fff;
+  }
+  

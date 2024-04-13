@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--chèn css-->
+    <link rel="stylesheet" href="../session22_thuchanh_fo1rm/style.css">
+    <title>Thực hành Js - tạo form validate 1</title>
+</head>
+<body>
+    
+    <div class="main">
+        <form action="" method="POST" class="form" id="form-1">
+            <h3 class="heading">Thành viên đăng ký</h3>
+            <p class="desc">Cùng nhau học lập trình miễn phí tại F8</p>
+
+            <!--tạo khổi khoản cách-->
+            <div class="spacer"></div>
+
+            <div class="form-group">
+                <label for="fullname" class="form-label">Tền đầỳ đủ: </label>
+                <input type="text" id="fullname" class="form-control" name="fullname" placeholder="VD: Tran Huu Phuc">
+                <span class="form-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="email" class="form-label">Email: </label>
+                <input type="email" id="email" class="form-control" name="fullname" placeholder="VD: email@gmail.com">
+                <span class="form-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="password" class="form-label">Mật khẩu: </label>
+                <input type="password" id="password" class="form-control" name="password" placeholder="Nhập mật khẩu">
+                <span class="form-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="password_confirmation" class="form-label">Nhập lại mật khẩu: </label>
+                <input type="password" id="password_confirmation" class="form-control" name="password_confirmation" placeholder="Nhập lại mật khẩu">
+                <span class="form-message"></span>
+            </div>
+
+              <!--trường hợp xử lý vơi selector-->
+              <div class="form-group">
+                <label for="city" class="form-label">Tỉnh/TP: </label>
+                <select id="city" class="form-control" name="city">
+                    <option value="">Chọn Tỉnh/TP--</option>
+                    <option value="hn">Hà Nội</option>
+                    <option value="hcm">TP. HCM</option>
+                </select>
+                <span class="form-message"></span>
+            </div>
+
+
+            <!--check box-->
+            <div class="form-group horizontal">
+                <label for="password_confirmation" class="form-label">Giới tính: </label>
+                <div>
+                    <input type="radio" class="form-control" name="gender" value="Male">Nam
+                </div>
+                <div>
+                    <input type="radio" class="form-control" name="gender" value="Female">Nữ
+                </div>
+                <span class="form-message"></span>
+            </div>
+
+            <button class="form-submit">Đăng ký</button>
+        </form>
+    </div>
+
+
+    <!--Phần chèn Script-->
+    <script src="../session22_thuchanh_fo1rm/script.js"></script>
+
+    <!--Gọi thực thi hàm Validator trong index.html-->
+    <!--cách viết code mà có thể mong muốn tái sử dụng cho nhiều th khác
+    ==> có thể tái sử dụng cho nhiều ứng dụng form khác ỡ mỗi trang web # 
+    chứ không chỉ nhất thiết là ở form 1 này-->
+    <script>
+        // đặt tên là validator như tên form xử lý đăng ký đằng nhập cũng đc
+        //==> qua mục Js ta sẽ viết luận lý định nghĩa cho nó -> sau này có thể dùng nó để tái sử dụng
+        Validator({
+            form:'#form-1',   // lk tên class của thẻ form trc
+            formGroupSelector: '.form-group',
+            errorSelector: '.form-message',
+            rule: [
+                // isRequired là trg bắt buộc nhập -> ở đây là đang tạo method cho Validotor
+                Validator.isRequired('#fullname'),
+                // tg tự cho các trg form-group khc nhau
+                Validator.isEmail('#email'),
+                // tạo trường cho mật khẩu
+                Validator.minLenght('#password', 8),
+                // tạo trường cho password nhập lại
+                Validator.isConfirmed('#password_confirmation', function(){
+                    // lấy ra đúng value kw là password nhập vào của đúng form-1 
+                    return document.querySelector('#form-1 #password').value
+                }, 'Vui lòng nhập lại khớp với password ở trên'),
+                
+                // ruleValue cho selector
+                Validator.isRequired('#city'),
+                // ruleValue cho checkbox -> các thẻ radio, checkbox thì khôg đặt id nên đây là cách xử lý để get Element nó
+                Validator.isRequired('input[name="gender"]')
+            ],
+
+            // thêm key sử lý cho nút button submit
+            onSubmit: function(data){
+                // call API chỗ này
+                console.log(data)
+            }
+        })
+    </script>
+</body>
+</html>

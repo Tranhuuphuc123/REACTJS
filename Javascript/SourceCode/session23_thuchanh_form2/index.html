@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--chèn css-->
+    <link rel="stylesheet" href="../session23_thuchanh_form2/style.css">
+    <title>Thực hành form số 02</title>
+</head>
+
+<body>
+    <div class="main">
+        <form action="" method="POST" class="form" id="form-2">
+            <h3 class="heading">Thành viên đăng ký</h3>
+            <p class="desc">Cùng nhau học lập trình miễn phí tại F8</p>
+
+            <!--tạo khổi khoản cách-->
+            <div class="spacer"></div>
+
+            <div class="form-group">
+                <label for="fullname" class="form-label">Tền đầỳ đủ: </label>
+                <!--tạo trg required bắt buộc nhập cho thẻ input
+                     => Lưu ý rules là thư viện sẽ do mình tự định nghĩa-->
+                <input type="text" id="fullname" rules="required" class="form-control" name="fullname" placeholder="VD: Tran Huu Phuc">
+                <span class="form-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="email" class="form-label">Email: </label>
+                <!--required với email theo quy tắc phải có @gmail.com 
+                    => Lưu ý rules là thư viện sẽ do mình tự định nghĩa-->
+                <input type="email" id="email" rules="required|email" class="form-control" name="email" placeholder="VD: email@gmail.com">
+                <span class="form-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="password" class="form-label">Mật khẩu: </label>
+                <!---required với password tối thiểu min: 6 ký tự
+                     => Lưu ý rules là thư viện sẽ do mình tự định nghĩa-->
+                <input type="password" id="password" rules="required|min:6" class="form-control" name="password" placeholder="Nhập mật khẩu">
+                <span class="form-message"></span>
+            </div>
+
+            <!-- <div class="form-group">
+                <label for="password_confirmation" class="form-label">Nhập lại mật khẩu: </label>
+                <input type="password" id="password_confirmation" class="form-control" name="password_confirmation" placeholder="Nhập lại mật khẩu">
+                <span class="form-message"></span>
+            </div> -->
+
+            <button class="form-submit">Đăng ký</button>
+        </form>
+    </div>
+
+
+    <!--chèn script-->
+    <script src="../session23_thuchanh_form2/script.js"></script>
+
+    <!--Script cá nhân: xử lý xây dựng cái mong muốn/out put đạt đc
+     + code đơn giản hơn
+     + dùng thư viện chung để dễ tái sử dụng cho nhiều trg hợp
+     -> xây dựng rules lib riêng và đưa nó vào các thẻ input bắt sự kiện bên trên -->
+    <script>
+        Validator('#form-2')
+    </script>
+</body>
+
+</html>

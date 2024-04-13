@@ -1,0 +1,248 @@
+/*Phần thiết kế style css cho mục Toast Message*/
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: system-ui, sans-serif;
+    background-color: #f4f4f5;
+}
+
+body > div {
+   margin: auto;
+}
+
+/*********Phần button**********/
+.btn{
+    display: inline-block;
+    text-decoration: none; /* bỏ gạch chưng cho hiệu ứng chũ text*/
+    background-color: transparent;
+    border: none;
+    /*thuộc tính "outline" được sử dụng để xác định một đường viền (outline) xung quanh phần tử HTML
+    => thường được sử dụng để tạo ra một đường viền hình chữ nhật hoặc hình dạng khác xung quanh phần tử mà không làm
+    thay đổi kích thước thực sự của phần tử đó*/
+    outline: none;
+    color: #fff;
+    padding: 12px 48px;
+    border-radius: 50px;
+    cursor: pointer; /*hiệu ứng hình dạng bàn tay người khi rê chuột vào đối tượng*/
+    min-width: 120px;
+    /*được sử dụng để xác định cách chuyển đổi (transition) hoặc làm mịn (animate) các thuộc tính CSS khi có sự thay đổi 
+    trong trạng thái hoặc hoạt động của phần tử.
+    => Nó cho phép bạn tạo hiệu ứng chuyển đổi mềm mại và thay đổi dần giữa các giá trị thuộc tính CSS khi có tương tác từ 
+    người dùng hoặc sự thay đổi trong nội dung.
+     + opacity: hiệu ứng thay đổi là làm mờ dần
+     + 0.2s: time thời đổi
+     + ease: Hàm dựng sẵn (timing function) để xác định cách giá trị thay đổi theo thời gian
+     Hàm "ease" (là hàm mặc định khi không có hàm nào được chỉ định) tạo ra một hiệu ứng 
+    chuyển đổi mềm mại bắt đầu chậm và kết thúc chậm. Nó làm cho sự thay đổi bắt đầu chậm, sau đó 
+    nhanh chóng và kết thúc chậm, tạo ra hiệu ứng mượt mà */
+    transition: opacity 0.2s ease;
+}
+
+
+.btn--success {
+    background-color: #71be34;
+  }
+.btn--danger {
+    background-color: #ff623d;
+  }
+
+ /*các hiệu ứng hỗ trợ khi mà nhấn btn success và btn danger hiện ra*/ 
+ .btn--size-l {
+    padding: 16px 56px;
+  }
+  
+  .btn--size-s {
+    padding: 8px 32px;
+  }
+  
+  .btn:hover {
+    opacity: 0.8;
+  }
+  
+  .btn + .btn {
+    margin-left: 16px;
+  }
+
+  .btn--warn {
+    background-color: #ffb702;
+  }
+  .btn--disabled {
+    opacity: 0.5 !important;
+    cursor: default;
+  }
+  
+
+/******************************************************************************/
+/* ======= Toast message ======== */
+/*Mục chỉnh css Beem của mục thông báo các mục thong báo thành công, thất bại*/
+#toast{
+  /* fixed giúp cho toast không bị trôi đi khi scroll tới tận cuối trang */
+  position: fixed;
+  top: 32px;
+  right: 32px;
+}
+
+.toast{
+    display:flex;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 2px;
+    padding: 20px 0;
+    border-left: 4px solid;
+    /*Hiệu ứng đổ bóng*/
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.08);
+    /*tạo hiệu ứng chuyển mềm mại-> xem lại transition ở trên*/
+    transition: all linear 0.3s;
+    margin-bottom: 10px;
+    min-width: 400px;
+    max-width: 450px;
+
+    /* dùng transform thay đổi hình dạng của thẻ toast -> mục đích
+    tạo hiệu ứng xuất hiện của hộp thoại khi nhấn button thì hôp thoại 
+    toast xuất hiện từ phái bên phải vào phía bên trái một cách mượt mà
+    tạo hiệu ứng chuyển nhẹ nhàng
+     + tranlateX: di chuyển theo trục X với mục đích dịch chuyển toast từ từ 
+     phía phải qua phía trái
+     + calc(100% + 32px) -> là 100% là nó sẽ lấy đúng kích thước gốc của hộp thoại toast
+      + 32px là vì cài #toast cách phải 32px nên + thêm cái này để đảm bảo khi ẩn toast 
+      đi thì nó ẩn đúng bằng kích thước gốc của hộp thoại toast bao gôm cả lề phải mà
+      thẻ bao có id #toast đã khai báo right; 32px, calc là hàm toán học giúp việc tranlateX
+      có thể + thêm px*/
+      
+    /* transform: translateX(calc(100% + 32px)); */
+
+
+    /*để xử lý hiệu ứng chuyển tôi đã tạo một animation là một @keyFrame có tên
+    slideInLeft , sliderRight bên dưới với hiệu chỉnh tranforms như đã giải thích
+    đầy đủ hiệu ứng công dụng của nó ở mục giải thích cho tranforms
+    => ta lôi cái animation @keyFrame vào như sau
+    => slideInLeft ease .8s:display:  
+     + slideInLeft: cái keyFrame thiết kế bên dưới
+     + "ease": Hàm "ease" (là hàm mặc định khi không có hàm nào được chỉ định) tạo ra một hiệu ứng 
+    chuyển đổi mềm mại bắt đầu chậm và kết thúc chậm. Nó làm cho sự thay đổi bắt đầu chậm, sau đó 
+    nhanh chóng và kết thúc chậm, tạo ra hiệu ứng mượt mà.
+     +.8s là sự thay đổi chuyển động trong khoản 8s
+
+    => fadeOut linear 2s:
+     + fadOut là cai kayframe tạo hiệu ứng mờ viết bên dưới
+     + linear: Hàm "linear" làm cho sự thay đổi trong giá trị thuộc tính diễn ra một cách đều đặn 
+    và liên tục theo thời gian. Điều này có nghĩa rằng tốc độ thay đổi không thay đổi trong suốt 
+    quá trình chuyển đổi.
+     + 2s là thời gian sẽ mờ đi cái hộp thoại toast sau khi nó xuất hiện 
+     + forwards:   -> fadeOut là một @keyFrame có chức năng là ẩn hộp thoaoj toast đi sau khi xuất hiện khoản 0.3s
+      -> nếu không có forwards thì sau khi ẩn 3s nó lại quạy lại trạng thái ban đầu của keyFrame slideInLeft
+      <=> với forwards nó sẽ giúp duy trì trạng thaais cuối cùng của fadeOut giúp nó sau khi ẩn sẽ không hiện lại nữa
+      , ẩn và giữ trạng thái ẩn*/
+
+    /* animation: slideInLeft ease .8s, fadeOut linear 3s forwards; */
+
+}  
+
+/*xét màu cho viền border ở mỗi mục khác  border-left khác nhau 
+=>cái tên kiểu toast--<tên class> chính là Modifier (M) của Beem css: Modifier là các biến thể hoặc trạng thái của "block" 
+hoặc "element". Chúng cho phép bạn thay đổi giao diện hoặc hành vi của block hoặc element. Modifier được kết nối với block
+ hoặc element bằng dấu gạch ngang (--) và có tên riêng biệt.  */
+.toast--Success{
+  border-color: #0fab0d;  
+}
+.toast--Info{
+  border-color:#12afa5 ;  
+}
+.toast--Warn{
+  border-color: #dae817;  
+}
+.toast--Error{
+   border-color: #f4372a; 
+}
+
+
+.toast__icon{
+  font-size: 24px;
+}
+
+.toast__icon, 
+.toast__close{
+    padding: 0 16px;
+}
+.toast__body{
+   /*mục đích là dù cái message trong hộp thông báo có mội dung ngắn
+   thì kích thước chiều ngang của hộ thoại toast thông báo cũng không bị 
+   thu ngắn lại làm xấu đi hộp thoại*/
+  flex-grow: 1;
+}
+.toast__title{
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+}
+.toast__msg{
+  font-size: 15px;
+  color: #444;
+  margin-top: 4px;
+  /* line-heigth xác định k/c giữa các chữ trong đoạn msg*/
+  line-height: 1.6;
+}
+
+.toast__close{
+    font-size: 20px;
+    color: rgba(0, 0, 0, 0.3);
+    /*hiệu ứng rê chuột vào hiện ra hình bàn tay*/
+    cursor: pointer;
+}
+  
+
+
+
+/*************************************************************************/
+ /* Tạo hiệu ứng animation chuyển động(các mã khai báo @keyFrame ấy)*/
+
+ /*đoạn mã " @keyframes" được sử dụng để định nghĩa các hoạt động hoặc chuyển động tùy chỉnh
+  (animations) cho các phần tử HTML. " @keyframes" cho phép bạn xác định các bước trung gian 
+  trong quá trình hoạt động của phần tử từ trạng thái này sang trạng thái khác.
+  
+  => slideInLeft: Đây là một keyframe dùng để tạo hiệu ứng trượt vào từ bên trái. Nó chứa hai trạng thái: 
+  "from" và "to". 
+   + Trạng thái "from" mô tả phần tử ban đầu với opacity (độ trong suốt) bằng 0 (không thấy) và vị trí ban 
+   đầu bên ngoài màn hình bên trái (translateX(calc(100% + 32px))). 
+   + Trạng thái "to" mô tả phần tử sau khi hoàn thành hoạt động, với opacity bằng 1 (hoàn toàn hiển thị) 
+   và vị trí đã thay đổi để hiển thị ở vị trí ban đầu (translateX(0)).*/
+  @keyframes slideInLeft {
+    from {
+      opacity: 0; 
+       /* dùng transform thay đổi hình dạng của thẻ toast -> mục đích
+    tạo hiệu ứng xuất hiện của hộp thoại khi nhấn button thì hôp thoại 
+    toast xuất hiện từ phái bên phải vào phía bên trái một cách mượt mà
+    tạo hiệu ứng chuyển nhẹ nhàng
+     + tranlateX: di chuyển theo trục X với mục đích dịch chuyển toast từ từ 
+     phía phải qua phía trái
+     + calc(100% + 32px) -> là 100% là nó sẽ lấy đúng kích thước gốc của hộp thoại toast
+      + 32px là vì cài #toast cách phải 32px nên + thêm cái này để đảm bảo khi ẩn toast 
+      đi thì nó ẩn đúng bằng kích thước gốc của hộp thoại toast bao gôm cả lề phải mà
+      thẻ bao có id #toast đã khai báo right; 32px, calc là hàm toán học giúp việc tranlateX
+      có thể + thêm px*/
+      transform: translateX(calc(100% + 32px));
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  /*fadeOut: Đây là một keyframe dùng để tạo hiệu ứng làm mờ dần. Chỉ có trạng thái "to" trong đó opacity 
+  được đặt thành 0 (hoàn toàn trong suốt), tạo ra hiệu ứng làm mờ phần tử dần dần biến mất.*/
+  @keyframes fadeOut {
+    to {
+      opacity: 0;
+    }
+  }
+
+ 
+
+  
