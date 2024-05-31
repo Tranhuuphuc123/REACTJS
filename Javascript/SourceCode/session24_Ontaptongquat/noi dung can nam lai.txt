@@ -1,0 +1,2 @@
+1/ hiểu rõ callback trong js
+2/ hiểu rõ lại fetch

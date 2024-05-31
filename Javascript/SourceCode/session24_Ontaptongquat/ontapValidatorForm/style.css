@@ -1,0 +1,154 @@
+/*PHẦN THIẾT KẾ GIAO DIỆN FILE CSS*/
+/*thiết kế css cho form validate */
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html{
+    color: #c5baba;
+    font-size:  62.5%;
+    font-family: "Open Sans", sans-serif;
+}
+
+.invalid{
+    color:rgb(166, 22, 22);
+}
+
+/*class main của thẻ div bao quanh form lớn */
+.main{
+  background: #e3dada;
+  min-height: 100vh;
+  display: flex;
+  /*căn chỉnh theo trục x trung năm ngang trục hoành*/
+  justify-content: center;
+}
+
+/*class: form dùng để căn chỉnh chop form đăng ký*/
+.form{
+    width: 360px;
+    min-height: 100px;
+    padding: 32px 24px;
+    text-align: center;
+    background: #fff;
+    border-radius: 10px;
+    margin: 24px;
+    /*thuộc tính của flexbox giúp phân chia bố cục web -> xem lại bài 29_flexbox css*/
+    align-self: center;
+    /*đổ bóng với box-shadown*/
+    box-shadow: 0 2px 5px 0 rgba(10, 98, 187, 0.1);
+}
+
+
+/*class form-heading định chỉnh cho chử heading*/
+.form .heading{
+    /*rem: thẻ điều chỉnh kích thước nhưng nó phụ thuộc vào sự thay đổi của thẻ html*/
+    font-size: 2rem; 
+}
+
+
+/*class .desc của form căn chỉnh text ghi chú cho form -> câu logan quảng cáo ấy*/
+.from .desc{
+  text-align: center;
+  color: #636d77;
+  font-size: 1.6rem;
+  font-weight: 300;
+  line-height: 2.4rem;
+
+  /*lighter trong font-weight sẽ làm thuộc tính text trở nên diệu hơn cũng in đậm nhưng mà 
+  in đậm một cách nhẹ hơn không như bold => vd: font-weight trên cho 300 thì lighter nó sẽ 
+  in đậm lên nhưng diệu hơn khoảng 150 - 250 thui*/
+  font-weight: lighter;
+  margin-top: 16px;
+}
+
+
+/*class form-group bao các thẻ chứa label và input*/
+.form-group{
+    /*định khối div như một container trong flexbox giúp các tp con bên trong 
+    linh hoạt trong cách bố chí bố cục -> cụ thể là linh hoạt với sự kết hợ của 
+    dạng hiển thị flex direction*/
+    display: flex;
+    margin-bottom: 16px;
+    /*sắp xếp hiển thị bố cục kiểu column -> kiểu cột là kiểu sắp xếp các thẻ div có
+    class form-group thành một dạng như cột từ trên xuống dưới theo chiều dọc*/
+    flex-direction: column;
+}
+
+.form-group.horizontal{
+    flex-direction: row;
+}
+
+.form-label,
+.form-message{
+    text-align: left;
+}
+
+/* nội dung các tên của thẻ input*/
+.form-label{
+    font-weight: 700;
+    padding-bottom: 6px;
+    /*line-height: thuộc tính chỉnh k/c giữa các chữ theo trục dọc, rem là đơn vị tính toán
+    thèo độ cao*/
+    line-height: 1.8rem;
+    font-size: 1.4rem;
+}
+
+
+/*định sữa cho các thẻ input*/
+.form-control{
+    height: 40px;
+    padding: 8px 12px;
+    border: 1px solid #b3b3b3;
+    border-radius: 4px;
+    /*Đoạn này có ý nghĩa là khi phần tử có class .form-control được focus (nhận được sự chú ý), 
+    đường viền mặc định sẽ bị xóa đi (được đặt thành none). Việc này thường được thực hiện để tùy
+    chỉnh giao diện và tránh gây phiền hà khi người dùng tương tác với các trường nhập liệu hoặc 
+    các phần tử khác trên trang web.*/
+    outline: none;
+    font-size: 1.4rem;
+}
+
+
+.form-control:hover{
+    border-color: #1dbfaf;
+}
+
+
+/*class của thẻ span trong mục class form-group chứa label và input ấy*/
+.form-message{
+  font-size: 1.2rem;
+  line-height: 1.6rem;
+  padding: 4px 0 0;
+}
+
+
+/*thiết kế cho nút button đăng ký*/
+.form-submit{
+    /*?? đang tiềm hiểu lại??*/
+    outline: none;
+    background-color: #1dbfaf;
+    margin-top: 12px;
+    padding: 12px 16px;
+    font-weight: 600;
+    color: #fff;
+    border: none;
+    width: 100%;
+    font-size: 14px;
+    border-radius: 8px;
+    /*thuộc tính hiển thị hình dạng con trỏ chuột khi hover vào
+    => xem lại bài Lệnh tổng hợp css có phần cursor
+    => Pointer là hiển thị con trỏ chuột dạng hình bàn tay*/
+    cursor: pointer;
+}
+
+
+.form-submit:hover{
+    background-color: #11b846;
+}
+
+/*lớp cpacer trong thẻ span đầu đơng giản tạo khối k/c bỏ cũng đc tại thích thiết kế dậy */
+.spacer{
+    margin-top: 36px;
+}

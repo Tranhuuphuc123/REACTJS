@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--chèn css-->
-    <link rel="stylesheet" href="../session22_thuchanh_fo1rm/style.css">
-    <title>Thực hành Js - tạo form validate 1</title>
+    <!--chèn css cho đoạn code html-->
+    <link rel="stylesheet" href="../../session24_Ontaptongquat/ontapValidatorForm/style.css">
+    <title>Phần ôn tập tổng ôn kiến thức môn javascript</title>
 </head>
+
 <body>
-    
+    <h1>ÔN TẬP XỬ LÝ FORM VALIDATOR </h1>
+
+
     <div class="main">
-        <form action="" method="POST" class="form" id="form-1">
+        <form action="" method="POST" class="form" id="form-signup">
             <h3 class="heading">Thành viên đăng ký</h3>
             <p class="desc">Cùng nhau học lập trình miễn phí tại F8</p>
 
@@ -70,49 +74,7 @@
     </div>
 
 
-    <!--Phần chèn Script-->
-    <script src="../session22_thuchanh_fo1rm/script.js"></script>
-
-
-
-
-    
-    <!--Gọi thực thi hàm Validator trong index.html-->
-    <!--cách viết code mà có thể mong muốn tái sử dụng cho nhiều th khác
-    ==> có thể tái sử dụng cho nhiều ứng dụng form khác ỡ mỗi trang web # 
-    chứ không chỉ nhất thiết là ở form 1 này-->
-    <script>
-        // đặt tên là validator như tên form xử lý đăng ký đằng nhập cũng đc
-        //==> qua mục Js ta sẽ viết luận lý định nghĩa cho nó -> sau này có thể dùng nó để tái sử dụng
-        Validator({
-            form:'#form-1',   // lk tên class của thẻ form trc
-            formGroupSelector: '.form-group',
-            errorSelector: '.form-message',
-            rule: [
-                // isRequired là trg bắt buộc nhập -> ở đây là đang tạo method cho Validotor
-                Validator.isRequired('#fullname'),
-                // tg tự cho các trg form-group khc nhau
-                Validator.isEmail('#email'),
-                // tạo trường cho mật khẩu
-                Validator.minLenght('#password', 8),
-                // tạo trường cho password nhập lại
-                Validator.isConfirmed('#password_confirmation', function(){
-                    // lấy ra đúng value kw là password nhập vào của đúng form-1 
-                    return document.querySelector('#form-1 #password').value
-                }, 'Vui lòng nhập lại khớp với password ở trên'),
-                
-                // ruleValue cho selector
-                Validator.isRequired('#city'),
-                // ruleValue cho checkbox -> các thẻ radio, checkbox thì khôg đặt id nên đây là cách xử lý để get Element nó
-                Validator.isRequired('input[name="gender"]')
-            ],
-
-            // thêm key sử lý cho nút button submit
-            onSubmit: function(data){
-                // call API chỗ này
-                console.log(data)
-            }
-        })
-    </script>
+    <script src="../../session24_Ontaptongquat/ontapValidatorForm/formSignup.js"></script>
 </body>
+
 </html>
